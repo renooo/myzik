@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
-		$this->call('BandsTableSeeder');
-		$this->command->info('Band Table seeded !');
+		$this->call('CountriesTableSeeder');
+		$this->command->info('CountriesTable seeded !');
 	}
 
 }
