@@ -16,11 +16,11 @@ class CreateArtistsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
-			$table->string('real_name');
+			$table->string('real_name')->nullable();
 			$table->date('birthdate')->nullable();
 			$table->string('country_id', 2);
 			$table->foreign('country_id')->references('id')->on('countries');
-			$table->text('biography');
+			$table->text('biography')->nullable();
 			$table->timestamps();
 		});
 	}

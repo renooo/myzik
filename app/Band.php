@@ -4,6 +4,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Band extends Model {
 
+    protected $fillable = array(
+        'name',
+        'active',
+        'active_from',
+        'active_to',
+        'biography'
+    );
+
     public function country()
     {
         return $this->belongsTo('App\Country');

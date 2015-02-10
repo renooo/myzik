@@ -4,6 +4,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Record extends Model {
 
+    protected $fillable = array(
+        'name',
+        'release_date',
+        'catalog_number',
+        'description'
+    );
+
     public function band()
     {
         return $this->belongsTo('App\Band');

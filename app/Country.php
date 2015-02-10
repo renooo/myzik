@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Country extends Model {
-
+class Country extends Model
+{
     public $timestamps = false;
 
     public function bands()
@@ -16,3 +16,4 @@ class Country extends Model {
         return $this->hasMany('App\Artist');
     }
 }
+
