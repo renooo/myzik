@@ -16,12 +16,12 @@ class CreateBandsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
-			$table->boolean('active');
+			$table->boolean('active')->default(true);
 			$table->date('active_from')->nullable();
 			$table->date('active_to')->nullable();
 			$table->string('country_id', 2)->nullable();
 			$table->foreign('country_id')->references('id')->on('countries');
-			$table->text('biography');
+			$table->text('biography')->nullable();
 			$table->timestamps();
 		});
 	}
