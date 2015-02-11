@@ -20,7 +20,7 @@ class CreateRecordsTable extends Migration {
 			$table->integer('label_id')->nullable();
 			$table->integer('format_id');
 			$table->string('catalog_number')->nullable();
-			$table->text('description');
+			$table->text('description')->nullable();
 			$table->integer('user_id')->unsigned();
 			$table->timestamps();
 
