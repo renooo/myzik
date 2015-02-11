@@ -14,6 +14,11 @@ class Band extends Model {
         'biography'
     );
 
+    protected $dates = array(
+        'active_from',
+        'active_to'
+    );
+
     public function country()
     {
         return $this->belongsTo('App\Country');

@@ -14,8 +14,7 @@ class Artist extends Model {
     );
 
     protected $dates = array(
-        'active_from',
-        'active_to'
+        'birthdate',
     );
 
     public function bands()
