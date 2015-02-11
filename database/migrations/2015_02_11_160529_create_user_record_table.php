@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRecordUserTable extends Migration {
+class CreateUserRecordTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,15 +12,15 @@ class CreateRecordUserTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('record_user', function(Blueprint $table)
+		Schema::create('user_record', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('record_id')->unsigned()->index();
 			$table->integer('user_id')->unsigned()->index();
-			$table->timestamps();
+			$table->integer('record_id')->unsigned()->index();
+			$table->nullableTimestamps();
 
-			$table->foreign('record_id')->references('id')->on('records');
 			$table->foreign('user_id')->references('id')->on('users');
+			$table->foreign('record_id')->references('id')->on('records');
 		});
 	}
 
@@ -31,7 +31,7 @@ class CreateRecordUserTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('record_user');
+		Schema::drop('user_record');
 	}
 
 }

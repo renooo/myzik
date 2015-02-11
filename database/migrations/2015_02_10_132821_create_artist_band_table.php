@@ -17,7 +17,7 @@ class CreateArtistBandTable extends Migration {
 			$table->increments('id');
 			$table->integer('artist_id')->unsigned()->index();
 			$table->integer('band_id')->unsigned()->index();
-			$table->timestamps();
+			$table->nullableTimestamps();
 
 			$table->foreign('artist_id')->references('id')->on('artists');
 			$table->foreign('band_id')->references('id')->on('band');

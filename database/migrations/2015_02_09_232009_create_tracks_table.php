@@ -19,7 +19,7 @@ class CreateTracksTable extends Migration {
 			$table->integer('number')->unsigned();
 			$table->string('name');
 			$table->integer('duration')->unsigned();
-			$table->timestamps();
+			$table->nullableTimestamps();
 
 			$table->foreign('record_id')->references('id')->on('records')->onDelete('cascade');
 		});

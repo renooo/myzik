@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGenreBandTable extends Migration {
+class CreateBandGenreTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,15 +12,15 @@ class CreateGenreBandTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('genre_band', function(Blueprint $table)
+		Schema::create('band_genre', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('genre_id')->unsigned()->index();
 			$table->integer('band_id')->unsigned()->index();
-			$table->timestamps();
+			$table->integer('genre_id')->unsigned()->index();
+			$table->nullableTimestamps();
 
-			$table->foreign('genre_id')->references('id')->on('genres');
 			$table->foreign('band_id')->references('id')->on('band');
+			$table->foreign('genre_id')->references('id')->on('genres');
 		});
 	}
 
@@ -31,7 +31,7 @@ class CreateGenreBandTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('genre_band');
+		Schema::drop('band_genre');
 	}
 
 }
