@@ -13,7 +13,7 @@
 
 Route::get('/', 'WelcomeController@index');
 
-Route::get('home', 'HomeController@index');
+Route::resource('band', 'BandController');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

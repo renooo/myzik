@@ -106,7 +106,7 @@ class GenresTableSeeder extends Seeder
             array('name' => 'Psychedelic Rock'),
             array('name' => 'Symphonic Rock'),
             array('name' => 'Slow Rock'),
-            array('name' => 'Big Band'),
+            array('name' => 'Big Http'),
             array('name' => 'Chorus'),
             array('name' => 'Easy Listening'),
             array('name' => 'Acoustic'),

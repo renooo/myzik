@@ -21,8 +21,8 @@ class TestBandsTableSeeder extends Seeder
             Band::create(array(
                 'name' => 'Test Band n°'.$b,
                 'active' => rand(0, 1),
-                'active_from' => ($min = rand(1950, date('Y'))),
-                'active_to' => rand($min, date('Y')),
+                'active_from' => Carbon\Carbon::create(($min = rand(1950, (int)date('Y'))), 1, 1, 0, 0),
+                'active_to' => Carbon\Carbon::create(rand($min, (int)date('Y')), 1, 1, 0, 0),
                 'country_id' => $countries->random()->id,
                 'biography' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id enim ullamcorper metus rhoncus cursus. Donec dignissim eget mi ac mollis. Quisque commodo, massa vitae sagittis pulvinar, odio eros auctor.',
                 'user_id' => $users->random()->id
