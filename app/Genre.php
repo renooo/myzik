@@ -4,9 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Genre extends Model {
 
-    protected $fillable = array(
-        'name'
-    );
+    public $timestamps = false;
 
     public function bands()
     {

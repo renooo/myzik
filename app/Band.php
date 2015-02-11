@@ -4,6 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Band extends Model {
 
+    use SubmittedByTrait;
+
     protected $fillable = array(
         'name',
         'active',

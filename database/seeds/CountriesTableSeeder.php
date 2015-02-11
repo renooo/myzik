@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use App\Country;
 
@@ -8,8 +7,7 @@ class CountriesTableSeeder extends Seeder
 {
     function run()
     {
-        Model::unguard();
-        DB::table('countries')->delete();
+        DB::table('countries')->truncate();
 
         $countries = array(
             array('id' => 'AF', 'name' => 'Afghanistan'),

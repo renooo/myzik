@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use App\Genre;
 
@@ -8,8 +7,7 @@ class GenresTableSeeder extends Seeder
 {
     function run()
     {
-        Model::unguard();
-        DB::table('genres')->delete();
+        DB::table('genres')->truncate();
 
         $genres = array(
             array('name' => 'Blues'),

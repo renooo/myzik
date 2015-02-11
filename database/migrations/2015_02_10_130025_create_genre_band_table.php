@@ -16,10 +16,11 @@ class CreateGenreBandTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('genre_id')->unsigned()->index();
-			$table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');
 			$table->integer('band_id')->unsigned()->index();
-			$table->foreign('band_id')->references('id')->on('band')->onDelete('cascade');
 			$table->timestamps();
+
+			$table->foreign('genre_id')->references('id')->on('genres');
+			$table->foreign('band_id')->references('id')->on('band');
 		});
 	}
 

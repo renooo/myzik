@@ -4,13 +4,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Format extends Model {
 
-    protected $fillable = array(
-        'name'
-    );
+    public $timestamps = false;
 
     public function records()
     {
         return $this->hasMany('App\Record');
     }
-
 }

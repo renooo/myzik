@@ -19,9 +19,12 @@ class CreateArtistsTable extends Migration {
 			$table->string('real_name')->nullable();
 			$table->date('birthdate')->nullable();
 			$table->string('country_id', 2);
-			$table->foreign('country_id')->references('id')->on('countries');
 			$table->text('biography')->nullable();
+			$table->integer('user_id')->unsigned();
 			$table->timestamps();
+
+			$table->foreign('country_id')->references('id')->on('countries');
+			$table->foreign('user_id')->references('id')->on('users');
 		});
 	}
 

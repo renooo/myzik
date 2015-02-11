@@ -4,6 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Record extends Model {
 
+    use SubmittedByTrait;
+
     protected $fillable = array(
         'name',
         'release_date',
@@ -29,5 +31,10 @@ class Record extends Model {
     public function label()
     {
         return $this->belongsTo('App\Label');
+    }
+
+    public function ownedBy()
+    {
+        return $this->belongsToMany('App\User');
     }
 }

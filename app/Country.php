@@ -15,5 +15,10 @@ class Country extends Model
     {
         return $this->hasMany('App\Artist');
     }
+
+    public function labels()
+    {
+        return $this->hasMany('App\Label');
+    }
 }
 

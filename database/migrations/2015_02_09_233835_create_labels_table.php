@@ -16,9 +16,12 @@ class CreateLabelsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('country_id', 2)->nullable();
-			$table->foreign('country_id')->references('id')->on('countries');
 			$table->string('name');
+			$table->integer('user_id')->unsigned();
 			$table->timestamps();
+
+			$table->foreign('country_id')->references('id')->on('countries');
+			$table->foreign('user_id')->references('id')->on('users');
 		});
 	}
 

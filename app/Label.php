@@ -4,6 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Label extends Model {
 
+    use SubmittedByTrait;
+
     protected $fillable = array(
         'name'
     );

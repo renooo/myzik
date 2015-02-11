@@ -15,7 +15,12 @@ class CreateArtistBandTable extends Migration {
 		Schema::create('artist_band', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('artist_id')->unsigned()->index();
+			$table->integer('band_id')->unsigned()->index();
 			$table->timestamps();
+
+			$table->foreign('artist_id')->references('id')->on('artists');
+			$table->foreign('band_id')->references('id')->on('band');
 		});
 	}
 

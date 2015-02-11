@@ -20,9 +20,12 @@ class CreateBandsTable extends Migration {
 			$table->date('active_from')->nullable();
 			$table->date('active_to')->nullable();
 			$table->string('country_id', 2)->nullable();
-			$table->foreign('country_id')->references('id')->on('countries');
 			$table->text('biography')->nullable();
+			$table->integer('user_id')->unsigned();
 			$table->timestamps();
+
+			$table->foreign('country_id')->references('id')->on('countries');
+			$table->foreign('user_id')->references('id')->on('users');
 		});
 	}
 
