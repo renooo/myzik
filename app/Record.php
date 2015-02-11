@@ -13,6 +13,10 @@ class Record extends Model {
         'description'
     );
 
+    protected $dates = array(
+        'release_date'
+    );
+
     public function band()
     {
         return $this->belongsTo('App\Band');

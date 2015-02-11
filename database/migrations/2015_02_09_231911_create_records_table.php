@@ -16,7 +16,7 @@ class CreateRecordsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
-			$table->date('release_date');
+			$table->date('release_date')->nullable();
 			$table->integer('label_id')->nullable();
 			$table->integer('format_id');
 			$table->string('catalog_number')->nullable();
