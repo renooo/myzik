@@ -13,13 +13,15 @@ class BandControllerTest extends TestCase
 
         $this->assertResponseOk();
         $this->assertViewHas('bands');
-        $this->assertEmpty($view['bands']);
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $view['bands']);
+        $this->assertCount(0, $view['bands']);
 
-        $this->seed('TestsSeeder');
     }
 
     function testIndexHasBandsWhenDbSeeded()
     {
+        $this->seed('TestBasicSeeder');
+
         $response = $this->action('GET', 'BandController@index');
         $view = $response->original;
 
@@ -28,10 +30,10 @@ class BandControllerTest extends TestCase
         $this->assertNotEmpty($view['bands']);
     }
 
-
     function testIndexHasPaginatedBands()
     {
-        /** NB : TestSeeders insère 25 groupes */
+        // NB : TestSeeders insère 25 groupes
+        $this->seed('TestsSeeder');
 
         $response = $this->action('GET', 'BandController@index');
         $view = $response->original;
@@ -64,6 +66,8 @@ class BandControllerTest extends TestCase
 
     function testShowWorksForExistingBand()
     {
+        $this->seed('TestBasicSeeder');
+
         $response = $this->action('GET', 'BandController@show', ['band' => 1]);
         $view = $response->original;
 
@@ -74,102 +78,161 @@ class BandControllerTest extends TestCase
 
     function testShowFailsForNonExistingBand()
     {
+        $this->seed('TestBasicSeeder');
+
         $this->action('GET', 'BandController@show', ['band' => 666]);
         $this->assertResponseStatus(404);
-        $this->assertViewMissing('band');
     }
 
     function testCreateFailsForGuest()
     {
         $this->action('GET', 'BandController@create');
-        $this->assertRedirectedToAction('AuthController@getLogin');
+        $this->assertRedirectedTo('auth/login');
     }
 
     function testStoreFailsForGuest()
     {
         $this->action('POST', 'BandController@store');
-        $this->assertRedirectedToAction('AuthController@getLogin');
+        $this->assertRedirectedTo('auth/login');
     }
 
     function testEditFailsForGuest()
     {
-        $this->action('GET', 'BandController@edit', ['band' => 1]);
-        $this->assertRedirectedToAction('AuthController@getLogin');
+        $this->seed('TestBasicSeeder');
+
+        $this->action('GET', 'BandController@edit', ['bands' => 1]);
+        $this->assertRedirectedTo('auth/login');
     }
 
     function testUpdateFailsForGuest()
     {
-        $this->action('PUT', 'BandController@update', ['band' => 1]);
-        $this->assertRedirectedToAction('AuthController@getLogin');
+        $this->seed('TestBasicSeeder');
+
+        $this->action('PUT', 'BandController@update', ['bands' => 1]);
+        $this->assertRedirectedTo('auth/login');
     }
 
-    /*function testCreateWorksForUser()
+    function testCreateWorksForUser()
     {
-        $user = App\User::find(1);
+        $this->seed('TestBasicSeeder');
+
+        $user = \App\User::find(1);
         $this->be($user);
 
         $this->action('GET', 'BandController@create');
-
         $this->assertResponseOk();
     }
 
     function testEditWorksForUser()
     {
-        $user = App\User::find(1);
+        $this->seed('TestBasicSeeder');
+
+        $user = \App\User::find(1);
         $this->be($user);
 
-        $band = $user->records->random();
-        $this->action('GET', 'BandController@edit', ['band' => $band->id]);
-
+        $this->action('GET', 'BandController@edit', ['bands' => 1]);
         $this->assertResponseOk();
-        $this->assertViewHas('band', $band);
     }
 
     function testEditFailsForUserAndNonExistingBand()
     {
-        $user = App\User::find(1);
+        $this->seed('TestBasicSeeder');
+
+        $user = \App\User::find(1);
         $this->be($user);
 
-        $this->action('GET', 'BandController@edit', ['band' => 666]);
+        $this->action('GET', 'BandController@edit', ['bands' => 666]);
 
         $this->assertResponseStatus(404);
-        $this->assertViewMissing('band');
     }
 
-    function testEditFailsForUserOtherThanCreator()
+   function testEditFailsForUserOtherThanCreator()
     {
-        $user = App\User::find(1);
+        $this->seed('TestBasicSeeder');
+
+        $user = \App\User::find(1);
         $this->be($user);
 
-        $otherUser = App\User::find(2);
-        $band = $otherUser->band->random();
-        $this->action('GET', 'BandController@edit', ['band' => $band->id]);
+        $this->action('GET', 'BandController@edit', ['bands' => 2]);
 
         $this->assertResponseStatus(403);
-        $this->assertViewMissing('band');
     }
 
     function testUpdateFailsForUserOtherThanCreator()
     {
+        $this->seed('TestBasicSeeder');
+
+        $user = \App\User::find(1);
+        $this->be($user);
+
+
+        $data = ['name' => 'updated band 2'];
+        $this->action('PUT', 'BandController@update', ['bands' => 2], $data);
+
+        $this->assertResponseStatus(403);
     }
 
     function testStoreFailsForUserWithBadData()
     {
+        $this->seed('TestBasicSeeder');
+
+        $user = \App\User::find(1);
+        $this->be($user);
+
+        $data  = [];
+        $this->action('POST', 'BandController@store', ['bands' => 1], $data);
+        $this->assertRedirectedToAction('BandController@create');
+        $this->assertViewHas('errors');
     }
 
     function testUpdateFailsForUserWithBadData()
     {
+        $this->seed('TestBasicSeeder');
+
+        $user = \App\User::find(1);
+        $this->be($user);
+
+        $data  = [];
+        $this->action('POST', 'BandController@store', ['bands' => 1], $data);
+        $this->assertRedirectedToAction('BandController@edit', array('bands' => 1));
+        $this->assertViewHas('errors');
     }
 
     function testStoreWorksForUserWithGoodData()
     {
+        $this->seed('TestBasicSeeder');
+
+        $user = \App\User::find(1);
+        $this->be($user);
+
+        $data  = ['name' => 'my new band', 'active' => true, 'user_id' => $user->id];
+        $this->action('POST', 'BandController@store', [], $data);
+        $this->assertRedirectedToAction('BandController@index');
     }
 
     function testUpdateWorksForUserWithGoodData()
     {
+        $this->seed('TestBasicSeeder');
+
+        $user = \App\User::find(1);
+        $this->be($user);
+
+        $data  = ['name' => 'updated band 1', 'active' => false, 'biography' => 'lorem ipsum updated'];
+        $this->action('POST', 'BandController@store', ['bands' => 1], $data);
+        $this->assertRedirectedToAction('BandController@index');
     }
 
     function testDestroyFailsForEveryone()
     {
-    }*/
+        $this->seed('TestBasicSeeder');
+
+        $this->action('DELETE', 'BandController@store', ['bands' => 1]);
+        $this->assertResponseStatus(405);
+
+        $user = \App\User::find(1);
+        $this->be($user);
+
+        $this->action('DELETE', 'BandController@store', ['bands' => 1]);
+        $this->assertResponseStatus(405);
+    }
 }

@@ -11,7 +11,6 @@ class BandController extends Controller {
 
     public function __construct()
     {
-        //$this->middleware('csrf');
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
@@ -43,7 +42,7 @@ class BandController extends Controller {
 	 */
 	public function store()
 	{
-		//
+        return redirect('bands');
 	}
 
 	/**
@@ -63,7 +62,7 @@ class BandController extends Controller {
 	 * @param  Band  $band
 	 * @return Response
 	 */
-	public function edit($band)
+	public function edit(Band $band)
 	{
         return view('band.edit', compact('band'));
 	}
@@ -74,9 +73,9 @@ class BandController extends Controller {
 	 * @param  Band  $band
 	 * @return Response
 	 */
-	public function update($band)
+	public function update(Band $band)
 	{
-		//
+        return redirect('bands');
 	}
 
 	/**
