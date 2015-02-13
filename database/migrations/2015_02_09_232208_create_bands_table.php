@@ -22,6 +22,7 @@ class CreateBandsTable extends Migration {
 			$table->string('country_id', 2)->nullable();
 			$table->text('biography')->nullable();
 			$table->integer('user_id')->unsigned();
+            $table->string('logo')->nullable();
 			$table->nullableTimestamps();
 
 			$table->foreign('country_id')->references('id')->on('countries');

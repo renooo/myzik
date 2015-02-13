@@ -1,0 +1,33 @@
+<?php namespace App\Http\Requests;
+
+use App\Http\Requests\Request;
+
+class StoreBandRequest extends Request {
+
+	/**
+	 * Determine if the user is authorized to make this request.
+	 *
+	 * @return bool
+	 */
+	public function authorize()
+	{
+		return false;
+	}
+
+	/**
+	 * Get the validation rules that apply to the request.
+	 *
+	 * @return array
+	 */
+	public function rules()
+	{
+		return [
+			'name' => 'required|max:255',
+            'country_id' => 'exists:countries',
+            'active' => 'boolean',
+            'active_from' => 'date',
+            'active_to' => 'required_if:active_from|date|after:active_from'
+		];
+	}
+
+}

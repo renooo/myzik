@@ -11,7 +11,8 @@ class Band extends Model {
         'active',
         'active_from',
         'active_to',
-        'biography'
+        'biography',
+        'country_id'
     );
 
     protected $dates = array(

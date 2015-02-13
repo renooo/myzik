@@ -17,7 +17,10 @@ class TestBandsTableSeeder extends Seeder
         /** @var Illuminate\Database\Eloquent\Collection $users */
         $users = User::all();
 
-        for($b = 1; $b <= 20; $b++){
+        for($b = 1, $u = 0; $b <= 25; $b++, $u++){
+            if($u == $users->count()){
+                $u = 0;
+            }
             Band::create(array(
                 'name' => 'Test Band n°'.$b,
                 'active' => rand(0, 1),
@@ -25,7 +28,7 @@ class TestBandsTableSeeder extends Seeder
                 'active_to' => Carbon\Carbon::create(rand($min, (int)date('Y')), 1, 1, 0, 0),
                 'country_id' => $countries->random()->id,
                 'biography' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id enim ullamcorper metus rhoncus cursus. Donec dignissim eget mi ac mollis. Quisque commodo, massa vitae sagittis pulvinar, odio eros auctor.',
-                'user_id' => $users->random()->id
+                'user_id' => $users->get($u)->id
             ));
         }
     }

@@ -23,6 +23,8 @@ class CreateRecordsTable extends Migration {
 			$table->string('catalog_number')->nullable();
 			$table->text('description')->nullable();
 			$table->integer('user_id')->unsigned();
+            $table->string('cover_front')->nullable();
+            $table->string('cover_back')->nullable();
 			$table->nullableTimestamps();
 
 			$table->foreign('band_id')->references('id')->on('bands');

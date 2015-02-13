@@ -3,18 +3,17 @@
 use App\Country;
 use Illuminate\Database\Seeder;
 
-class TestsSeeder extends Seeder
+class TestsEmptySeeder extends Seeder
 {
     function run()
     {
-        $this->call('DatabaseSeeder');
-        $this->call('TestUsersTableSeeder');
-        $this->call('TestBandsTableSeeder');
-        $this->call('TestGenreBandTableSeeder');
-        $this->call('TestArtistsTableSeeder');
-        $this->call('TestArtistBandTableSeeder');
-        $this->call('TestLabelsTableSeeder');
-        $this->call('TestRecordsTableSeeder');
-        $this->call('TestTracksTableSeeder');
+        DB::table('users')->truncate();
+        DB::table('bands')->truncate();
+        DB::table('artists')->truncate();
+        DB::table('records')->truncate();
+        DB::table('tracks')->truncate();
+        DB::table('artist_band')->truncate();
+        DB::table('labels')->truncate();
+        DB::table('band_genre')->truncate();
     }
 }
