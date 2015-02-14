@@ -3,8 +3,10 @@
 use App\Band;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreBandRequest;
+use App\Http\Requests\EditBandRequest;
+use App\Http\Requests\UpdateBandRequest;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
 class BandController extends Controller {
@@ -22,6 +24,7 @@ class BandController extends Controller {
 	public function index()
 	{
 		$bands = Band::all()->forPage(Input::get('page', 1), 10);
+
 		return view('band.index', compact('bands'));
 	}
 
@@ -40,8 +43,12 @@ class BandController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(StoreBandRequest $request)
 	{
+        $band = new Band($request->all());
+
+        Auth::user()->submittedBands()->save($band);
+
         return redirect('bands');
 	}
 
@@ -62,7 +69,7 @@ class BandController extends Controller {
 	 * @param  Band  $band
 	 * @return Response
 	 */
-	public function edit(Band $band)
+	public function edit(EditBandRequest $band)
 	{
         return view('band.edit', compact('band'));
 	}
@@ -73,8 +80,10 @@ class BandController extends Controller {
 	 * @param  Band  $band
 	 * @return Response
 	 */
-	public function update(Band $band)
+	public function update(UpdateBandRequest $request, Band $band)
 	{
+        $band->update($request->all());
+
         return redirect('bands');
 	}
 
