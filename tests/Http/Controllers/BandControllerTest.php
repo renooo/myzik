@@ -66,6 +66,7 @@ class BandControllerTest extends TestCase
 
     function testShowWorksForExistingBand()
     {
+        //NB : TestBasicSeeder insère 3 utilisateurs et 3 groupes
         $this->seed('TestBasicSeeder');
 
         $response = $this->action('GET', 'BandController@show', ['band' => 1]);
