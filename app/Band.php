@@ -20,6 +20,16 @@ class Band extends Model {
         'active_to'
     );
 
+    public function getActiveFromAttribute($date)
+    {
+        return substr($date, 0, 10);
+    }
+
+    public function getActiveToAttribute($date)
+    {
+        return substr($date, 0, 10);
+    }
+
     public function country()
     {
         return $this->belongsTo('App\Country');
