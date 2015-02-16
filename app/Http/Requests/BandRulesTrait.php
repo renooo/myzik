@@ -1,4 +1,4 @@
-<?php namespace App\Http\Request;
+<?php namespace App\Http\Requests;
 
 Trait BandRulesTrait
 {
@@ -11,10 +11,10 @@ Trait BandRulesTrait
     {
         return [
             'name' => 'required|max:255',
-            'country_id' => 'exists:countries',
+            'country_id' => 'exists:countries,id',
             'active' => 'boolean',
             'active_from' => 'date',
-            'active_to' => 'required_if:active_from|date|after:active_from'
+            'active_to' => 'required_if:active_from,!null|date|after:active_from'
         ];
     }
 }

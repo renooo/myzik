@@ -1,7 +1,18 @@
 @extends('app')
 
 @section('content')
-    <h1>{{ $band->name  }}</h1>
+    <div class="container">
+        <div class="page-header">
+            <h1>
+                {{$band->name}}
+                <small>modification</small>
+            </h1>
+        </div>
 
-    Modification
+        {!! Form::model($band, ['method' => 'PATCH', 'route' => ['bands.update', $band->id]]) !!}
+        @include('forms.band', ['submitButtonText' => 'Enregistrer les modifications'])
+        {!! Form::close() !!}
+
+        @include('errors.list')
+    </div>
 @stop

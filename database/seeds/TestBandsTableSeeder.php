@@ -22,7 +22,7 @@ class TestBandsTableSeeder extends Seeder
                 $u = 0;
             }
             Band::create(array(
-                'name' => 'Test Band n°'.$b,
+                'name' => 'Test Band n°'.sprintf('%02d', $b),
                 'active' => rand(0, 1),
                 'active_from' => Carbon\Carbon::create(($min = rand(1950, (int)date('Y'))), 1, 1, 0, 0),
                 'active_to' => Carbon\Carbon::create(rand($min, (int)date('Y')), 1, 1, 0, 0),

@@ -1,8 +1,10 @@
 <?php namespace App\Http\Controllers;
 
+use Auth;
 use App\Band;
+use App\Genre;
+use App\Country;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBandRequest;
 use App\Http\Requests\EditBandRequest;
 use App\Http\Requests\UpdateBandRequest;
@@ -16,6 +18,14 @@ class BandController extends Controller {
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
+    function getCountries()
+    {
+        $countries  = ['' => ' --- inconnu --- '];
+        $countries += Country::all()->lists('name', 'id');
+
+        return $countries;
+    }
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -23,9 +33,28 @@ class BandController extends Controller {
 	 */
 	public function index()
 	{
-		$bands = Band::all()->forPage(Input::get('page', 1), 10);
+        $qb = Band::query()->orderBy('name');
 
-		return view('band.index', compact('bands'));
+        $genre = Input::get('genre');
+
+        if($genre){
+            $genre = Genre::find($genre);
+
+            $qb->whereHas('genres', function($q) use($genre){
+                $q->where('genres.id', '=', $genre->id);
+            });
+        }
+
+        $country = Input::get('country');
+
+        if($country){
+            $country = Country::find($country);
+            $qb->where('country_id', '=', $country->id);
+        }
+
+        $bands = $qb->paginate(10);
+
+		return view('band.index', compact('bands', 'genre', 'country'));
 	}
 
 	/**
@@ -35,7 +64,9 @@ class BandController extends Controller {
 	 */
 	public function create()
 	{
-		return view('band.create');
+        $countries = $this->getCountries();
+
+		return view('band.create', compact('countries'));
 	}
 
 	/**
@@ -63,23 +94,27 @@ class BandController extends Controller {
         return view('band.show', compact('band'));
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  Band  $band
-	 * @return Response
-	 */
-	public function edit(EditBandRequest $band)
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param EditBandRequest $request
+     * @param  Band $band
+     * @return Response
+     */
+	public function edit(EditBandRequest $request, Band $band)
 	{
-        return view('band.edit', compact('band'));
+        $countries = $this->getCountries();
+
+        return view('band.edit', compact('band', 'countries'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  Band  $band
-	 * @return Response
-	 */
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param UpdateBandRequest $request
+     * @param  Band $band
+     * @return Response
+     */
 	public function update(UpdateBandRequest $request, Band $band)
 	{
         $band->update($request->all());

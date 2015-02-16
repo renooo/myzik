@@ -1,6 +1,6 @@
 <?php namespace App\Http\Requests;
 
-use App\Http\Request\BandRulesTrait;
+use Auth;
 
 class StoreBandRequest extends Request
 {

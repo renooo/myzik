@@ -4,6 +4,7 @@
  * Class TestCase
  *
  * @link http://code.tutsplus.com/tutorials/testing-like-a-boss-in-laravel-models--net-30087
+ * @link http://code.tutsplus.com/tutorials/testing-laravel-controllers--net-31456
  */
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase {

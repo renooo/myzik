@@ -166,7 +166,6 @@ class BandControllerTest extends TestCase
         $user = \App\User::find(1);
         $this->be($user);
 
-
         $data = ['name' => 'updated band 2'];
         $this->action('PUT', 'BandController@update', ['bands' => 2], $data);
 
@@ -184,6 +183,7 @@ class BandControllerTest extends TestCase
         $this->action('POST', 'BandController@store', ['bands' => 1], $data);
         $this->assertRedirectedToAction('BandController@create');
         $this->assertViewHas('errors');
+
     }
 
     function testUpdateFailsForUserWithBadData()
