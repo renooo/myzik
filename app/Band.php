@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Band extends Model {
 
     use SubmittedByTrait;
+    use ScopeLatestSubmissionsTrait;
 
     protected $fillable = array(
         'name',
@@ -28,6 +29,11 @@ class Band extends Model {
     public function getActiveToAttribute($date)
     {
         return substr($date, 0, 10);
+    }
+
+    public function getGenreListAttribute()
+    {
+        return $this->genres->lists('id');
     }
 
     public function country()

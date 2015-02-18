@@ -14,4 +14,12 @@ class Track extends Model {
     {
         return $this->belongsTo('App\Record');
     }
+
+    public function getDurationAttribute($seconds)
+    {
+        $duration = \Carbon\Carbon::createFromTimestamp($seconds);
+        $duration->setToStringFormat('H:i:s');
+
+        return $duration;
+    }
 }

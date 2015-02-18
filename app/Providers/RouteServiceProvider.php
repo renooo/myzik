@@ -25,6 +25,13 @@ class RouteServiceProvider extends ServiceProvider {
 		parent::boot($router);
 
 		$router->model('bands', 'App\Band');
+        $router->model('artists', 'App\Artist');
+        $router->model('records', 'App\Record');
+        $router->model('genres', 'App\Genre');
+        $router->model('genres', 'App\Genre');
+        $router->model('labels', 'App\Labels');
+        $router->model('countries', 'App\Country');
+        $router->model('formats', 'App\Format');
 	}
 
 	/**

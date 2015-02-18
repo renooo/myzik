@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Artist extends Model {
 
     use SubmittedByTrait;
+    use ScopeLatestSubmissionsTrait;
 
     protected $fillable = array(
         'name',

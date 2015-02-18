@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Label extends Model {
 
     use SubmittedByTrait;
+    use ScopeLatestSubmissionsTrait;
 
     protected $fillable = array(
         'name'

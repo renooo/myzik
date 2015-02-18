@@ -18,12 +18,22 @@ class BandController extends Controller {
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-    function getCountries()
+    private function getCountryList()
     {
         $countries  = ['' => ' --- inconnu --- '];
         $countries += Country::all()->lists('name', 'id');
 
         return $countries;
+    }
+
+    private function getGenreList()
+    {
+        return Genre::all()->lists('name', 'id');
+    }
+
+    private function syncGenres(Band $band, array $genres)
+    {
+        $band->genres()->sync($genres);
     }
 
 	/**
@@ -64,9 +74,10 @@ class BandController extends Controller {
 	 */
 	public function create()
 	{
-        $countries = $this->getCountries();
+        $countries = $this->getCountryList();
+        $genres = $this->getGenreList();
 
-		return view('band.create', compact('countries'));
+		return view('band.create', compact('countries', 'genres'));
 	}
 
 	/**
@@ -79,6 +90,9 @@ class BandController extends Controller {
         $band = new Band($request->all());
 
         Auth::user()->submittedBands()->save($band);
+        $this->syncGenres($band, Input::get('genre_list', []));
+
+        flash()->overlay('Le groupe a bien  été créé.', 'Confirmation');
 
         return redirect('bands');
 	}
@@ -103,9 +117,10 @@ class BandController extends Controller {
      */
 	public function edit(EditBandRequest $request, Band $band)
 	{
-        $countries = $this->getCountries();
+        $countries = $this->getCountryList();
+        $genres = $this->getGenreList();
 
-        return view('band.edit', compact('band', 'countries'));
+        return view('band.edit', compact('band', 'countries', 'genres'));
 	}
 
     /**
@@ -118,6 +133,9 @@ class BandController extends Controller {
 	public function update(UpdateBandRequest $request, Band $band)
 	{
         $band->update($request->all());
+        $this->syncGenres($band, Input::get('genre_list', []));
+
+        flash()->overlay('Le groupe a bien été modifié.', 'Confirmation');
 
         return redirect('bands');
 	}

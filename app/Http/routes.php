@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', ['as' => 'home', 'uses' => 'WelcomeController@index']);
+Route::get('/', ['as' => 'home', 'uses' => 'IndexController@index']);
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -19,3 +19,5 @@ Route::controllers([
 ]);
 
 Route::resource('bands', 'BandController');
+Route::resource('records', 'RecordController');
+Route::resource('labels', 'LabelController');

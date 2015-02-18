@@ -137,6 +137,7 @@ return [
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
         'DaveJamesMiller\Breadcrumbs\ServiceProvider',
+        'Laracasts\Flash\FlashServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -197,6 +198,7 @@ return [
 		'Form'		=> 'Illuminate\Html\FormFacade',
 		'Html'		=> 'Illuminate\Html\HtmlFacade',
         'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
+        'Flash' => 'Laracasts\Flash\Flash',
 	],
 
 ];

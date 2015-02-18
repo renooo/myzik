@@ -9,6 +9,11 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('genre_list', 'Genre(s) :') !!}
+    {!! Form::select('genre_list[]', $genres, null, ['id' => 'genre_list', 'class' => 'form-control', 'multiple']) !!}
+</div>
+
+<div class="form-group">
     {!! Form::label('active', 'Actuellement actif :') !!}
     {!! Form::checkbox('active') !!}
 </div>
@@ -34,3 +39,9 @@
     {!! Form::submit($submitButtonText, ['class' => 'btn btn-primary']) !!}
     <a class="btn" href="{{route('bands.index')}}" onclick="return confirm('Êtes-vous certain(e) de vouloir quitter cette page sans sauvegarder ?')">Annuler</a>
 </div>
+
+@section('footer')
+    <script>
+        $('#genre_list').select2();
+    </script>
+@endsection

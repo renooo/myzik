@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Record extends Model {
 
     use SubmittedByTrait;
+    use ScopeLatestSubmissionsTrait;
 
     protected $fillable = array(
         'name',
@@ -16,6 +17,15 @@ class Record extends Model {
     protected $dates = array(
         'release_date'
     );
+
+    public function getTotalDurationAttribute()
+    {
+        $seconds = $this->tracks->sum(function($track){ return $track->duration->getTimestamp(); });
+        $duration = \Carbon\Carbon::createFromTimestamp($seconds);
+        $duration->setToStringFormat('H:i:s');
+
+        return $duration;
+    }
 
     public function band()
     {
